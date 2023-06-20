@@ -1,0 +1,7 @@
+# Save by Karan Tiwari on 2023_04_20-03.43.33; build 2022 2021_09_15-23.27.30 176069
+from abaqus import *
+upgradeMdb(
+    'D:/Mtech/Composits/Project/Project_report_code_22101028/CAE File for RVE/Karanproject-2017-2017.cae'
+    , 
+    'D:/Mtech/Composits/Project/Project_report_code_22101028/CAE File for RVE/Karanproject-2017.cae')
+# Save by Karan Tiwari on 2023_04_20-03.43.33; build 2022 2021_09_15-23.27.30 176069

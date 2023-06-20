@@ -1,0 +1,3063 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-15.0, 15.0), 
+    point2=(15.0, -17.5))
+mdb.models['Model-1'].sketches['__profile__'].ConstructionLine(point1=(0.0, 
+    0.0), point2=(-7.5, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].ConstructionLine(point1=(0.0, 
+    0.0), point2=(0.0, 7.5))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].FixedConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].FixedConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].SymmetryConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], symmetryAxis=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].SymmetryConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4], symmetryAxis=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].ObliqueDimension(textPoint=(
+    -42.3278198242188, -5.6451587677002), value=15.0, vertex1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[0], vertex2=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[1])
+mdb.models['Model-1'].sketches['__profile__'].ObliqueDimension(textPoint=(
+    6.34916687011719, -20.3978462219238), value=15.0, vertex1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[1], vertex2=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[2])
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseSolidExtrude(depth=15.0, sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=1.12, name='__profile__', 
+    sheetSize=45.0, transform=
+    mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].faces[0], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['Model-1'].parts['Part-1'].edges[0], 
+    sketchOrientation=RIGHT, origin=(7.5, 0.0, 7.5)))
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].CircleByCenterPerimeter(center=(
+    0.0, 0.0), point1=(4.2, 4.48))
+mdb.models['Model-1'].sketches['__profile__'].RadialDimension(curve=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], radius=6.55529, 
+    textPoint=(-8.8775053024292, 4.25080728530884))
+mdb.models['Model-1'].parts['Part-1'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['Model-1'].sketches['__profile__'], sketchUpEdge=
+    mdb.models['Model-1'].parts['Part-1'].edges[0])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].PartitionCellBySweepEdge(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), edges=(mdb.models['Model-1'].parts['Part-1'].edges[4], ), sweepPath=
+    mdb.models['Model-1'].parts['Part-1'].edges[11])
+mdb.models['Model-1'].Material(name='Fibre')
+mdb.models['Model-1'].materials['Fibre'].Elastic(table=((225000.0, 15000.0, 
+    15000.0, 0.2, 0.2, 0.0714, 15000.0, 15000.0, 7000.0), ), type=
+    ENGINEERING_CONSTANTS)
+mdb.models['Model-1'].Material(name='Matrix')
+mdb.models['Model-1'].materials['Matrix'].Elastic(table=((3350.0, 0.35), ))
+mdb.models['Model-1'].HomogeneousSolidSection(material='Fibre', name='Fibre', 
+    thickness=None)
+mdb.models['Model-1'].HomogeneousSolidSection(material='Matrix', name='Matrix', 
+    thickness=None)
+mdb.models['Model-1'].parts['Part-1'].Set(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(('[#2 ]', 
+    ), ), name='Set-1')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-1'], sectionName='Fibre', 
+    thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Part-1'].Set(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(('[#3 ]', 
+    ), ), name='Set-2')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-2'], sectionName='Matrix', 
+    thicknessAssignment=FROM_SECTION)
+del mdb.models['Model-1'].parts['Part-1'].sectionAssignments[1]
+mdb.models['Model-1'].parts['Part-1'].Set(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), name='Set-3')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-3'], sectionName='Matrix', 
+    thicknessAssignment=FROM_SECTION)
+del mdb.models['Model-1'].parts['Part-1'].sets['Set-2']
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].StaticStep(name='Step-1', previous='Initial')
+mdb.models['Model-1'].FieldOutputRequest(createStepName='Step-1', name='fxx', 
+    variables=('S', 'U', 'SVOL', 'EVOL', 'ESOL'))
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=1.0)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].deleteMesh(regions=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(('[#3 ]', 
+    ), ))
+mdb.models['Model-1'].parts['Part-1'].setMeshControls(algorithm=MEDIAL_AXIS, 
+    regions=mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask((
+    '[#3 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-1', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#c ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[12], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'Load-1', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-1'], 
+    traction=GENERAL)
+mdb.models['Model-1'].loads.changeKey(fromName='Load-1', toName='SXP')
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-2', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#22 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[12], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[3]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXN', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-2'], 
+    traction=GENERAL)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FXX', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF, datacheckJob=True)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'Anisotropic material properties without a local orientation system have been defined for 2475 elements. Anisotropic material properties must be defined in a local orientation system. The elements are identified in element set ErrElemAnisotropicMaterial.', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].parts['Part-1'].MaterialOrientation(
+    additionalRotationType=ROTATION_NONE, fieldName='', localCsys=None, 
+    orientationType=USER, region=Region(
+    cells=mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(
+    mask=('[#2 ]', ), )), stackDirection=STACK_3)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['FXX'].submit(consistencyChecking=OFF, datacheckJob=True)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 3820, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'USER SUBROUTINE ORIENT IS MISSING', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ABORTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'FXX'})
+del mdb.models['Model-1'].rootAssembly.features['Datum csys-1']
+mdb.models['Model-1'].parts['Part-1'].MaterialOrientation(
+    additionalRotationType=ROTATION_NONE, axis=AXIS_1, fieldName='', localCsys=
+    None, orientationType=GLOBAL, region=Region(
+    cells=mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(
+    mask=('[#2 ]', ), )), stackDirection=STACK_3)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 12048, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Fri Apr 14 23:39:46 2023', 
+    'jobName': 'FXX'})
+del mdb.models['Model-1'].fieldOutputRequests['fxx']
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'U', 'SVOL', 'EVOL', 'ESOL', 'IVOL'))
+mdb.models['Model-1'].loads['SXP'].suppress()
+mdb.models['Model-1'].loads['SXN'].suppress()
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-3', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#40 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[6], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYP', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-3'], 
+    traction=GENERAL)
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-4', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#10 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[2], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[2]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYN', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-4'], 
+    traction=GENERAL)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FYY', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FYY'].submit(consistencyChecking=OFF)
+mdb.jobs['FYY']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FYY.odb', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 7928, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(JOB_COMPLETED, {'time': 'Fri Apr 14 23:47:40 2023', 
+    'jobName': 'FYY'})
+mdb.models['Model-1'].loads['SYN'].suppress()
+mdb.models['Model-1'].loads['SYP'].suppress()
+mdb.models['Model-1'].loads['SXP'].resume()
+mdb.models['Model-1'].loads['SXN'].resume()
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 5508, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Fri Apr 14 23:55:19 2023', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].loads['SYN'].resume()
+mdb.models['Model-1'].loads['SYP'].resume()
+mdb.models['Model-1'].loads['SYP'].suppress()
+mdb.models['Model-1'].loads['SYN'].suppress()
+mdb.models['Model-1'].loads['SXP'].suppress()
+mdb.models['Model-1'].loads['SXN'].suppress()
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-5', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#80 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[5], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[2]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SZP', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-5'], 
+    traction=GENERAL)
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-6', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[3], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[4]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SZN', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-6'], 
+    traction=GENERAL)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FZZ', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FZZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FZZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FZZ.odb', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 3920, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(JOB_COMPLETED, {'time': 'Sat Apr 15 00:12:40 2023', 
+    'jobName': 'FZZ'})
+mdb.models['Model-1'].loads['SZN'].suppress()
+mdb.models['Model-1'].loads['SZP'].suppress()
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-7', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#c ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[6], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXY_xy', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-7'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-8', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#40 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[12], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXY_yx', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-8'])
+mdb.models['Model-1'].loads.changeKey(fromName='SXY_xy', toName='SXY_xyp')
+mdb.models['Model-1'].loads.changeKey(fromName='SXY_yx', toName='SXY_yxp')
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-9', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#22 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[2], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[2]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXY_xyn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-9'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-10', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#10 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[10], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[2]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXY_yxn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-10'])
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FXY', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FXY'].submit(consistencyChecking=OFF)
+mdb.jobs['FXY']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXY.odb', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 8048, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(JOB_COMPLETED, {'time': 'Sat Apr 15 00:18:51 2023', 
+    'jobName': 'FXY'})
+mdb.models['Model-1'].loads['SXY_xyn'].suppress()
+mdb.models['Model-1'].loads['SXY_xyp'].suppress()
+mdb.models['Model-1'].loads['SXY_yxn'].suppress()
+mdb.models['Model-1'].loads['SXY_yxp'].suppress()
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-11', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#c ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[7], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[7]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXZ_xzp', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-11'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-12', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#80 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[12], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXZ_zxp', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-12'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-13', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#22 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[3], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[4]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXZ_xzn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-13'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-14', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[13], 
+    MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[4]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SXZ_zxn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-14'])
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FXZ', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FXZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FXZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXZ.odb', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 11340, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(JOB_COMPLETED, {'time': 'Sat Apr 15 00:37:42 2023', 
+    'jobName': 'FXZ'})
+mdb.models['Model-1'].loads['SXZ_xzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].suppress()
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-15', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#40 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[9], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYZ_yzp', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-15'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-16', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#80 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[6], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[6]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYZ_zyp', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-16'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-17', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#10 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[5], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[5]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYZ_yzn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-17'])
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-18', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Step-1', directionVector=
+    (mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges[4], MIDDLE), 
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices[5]), 
+    distributionType=UNIFORM, field='', localCsys=None, magnitude=10.0, name=
+    'SYZ_zyn', region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-18'])
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='FYZ', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['FYZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FYZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FYZ.odb', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 5268, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(JOB_COMPLETED, {'time': 'Sat Apr 15 00:57:48 2023', 
+    'jobName': 'FYZ'})
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].loads['SXN'].resume()
+mdb.models['Model-1'].loads['SXP'].resume()
+mdb.models['Model-1'].loads['SYZ_yzp'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyn'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyp'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzn'].suppress()
+mdb.models['Model-1'].loads['SXN'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXP'].setValues(magnitude=0.01)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 12832, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:27:55 2023', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].steps['Step-1'].setValues(initialInc=6.0, maxInc=6.0, 
+    minInc=6e-05, nlgeom=ON, timePeriod=6.0)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 3632, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 1U', 
+    'timeIncrement': 6.0, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 9, 'phase': STANDARD_PHASE, 
+    'equilibrium': 9})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 2U', 
+    'timeIncrement': 1.5, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 9, 'phase': STANDARD_PHASE, 
+    'equilibrium': 9})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 3U', 
+    'timeIncrement': 0.375, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 7, 'phase': STANDARD_PHASE, 
+    'equilibrium': 7})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 4U', 
+    'timeIncrement': 0.09375, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 5, 'phase': STANDARD_PHASE, 
+    'equilibrium': 5})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 5U', 
+    'timeIncrement': 0.0234375, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 5, 'phase': STANDARD_PHASE, 
+    'equilibrium': 5})
+mdb.jobs['FXX']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Too many attempts made for this increment', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ABORTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].steps['Step-1'].setValues(nlgeom=OFF)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 7348, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 6.0, 'increment': 1, 'stepTime': 6.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:33:29 2023', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].StaticStep(initialInc=6.0, maxInc=6.0, minInc=6e-05, 
+    name='Step-2', previous='Step-1', timePeriod=6.0)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 12632, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 6.0, 'increment': 1, 'stepTime': 6.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 12.0, 'attempts': 1, 
+    'timeIncrement': 6.0, 'increment': 1, 'stepTime': 6.0, 'step': 2, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:35:29 2023', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].StaticStep(initialInc=1.0, maxInc=1.0, minInc=1e-05, 
+    name='Step-3', previous='Step-2', timePeriod=1.0)
+mdb.models['Model-1'].StaticStep(name='Step-4', previous='Step-3')
+mdb.models['Model-1'].steps['Step-1'].setValues(initialInc=1.0, maxInc=1.0, 
+    minInc=1e-05, timePeriod=1.0)
+mdb.models['Model-1'].steps['Step-2'].setValues(initialInc=1.0, maxInc=1.0, 
+    minInc=1e-05, timePeriod=1.0)
+mdb.models['Model-1'].StaticStep(name='Step-5', previous='Step-4')
+mdb.models['Model-1'].StaticStep(name='Step-6', previous='Step-5')
+mdb.models['Model-1'].StaticStep(name='Step-7', previous='Step-6')
+mdb.models['Model-1'].StaticStep(name='Step-8', previous='Step-7')
+mdb.models['Model-1'].StaticStep(name='Step-9', previous='Step-8')
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+mdb.jobs['FXX']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXX.odb', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 7544, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXX', 'memory': 107.0})
+mdb.jobs['FXX']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FXX', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXX']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXX'})
+mdb.jobs['FXX']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:38:38 2023', 
+    'jobName': 'FXX'})
+mdb.models['Model-1'].loads['SXN'].suppress()
+mdb.models['Model-1'].loads['SXP'].suppress()
+mdb.models['Model-1'].loads['SYN'].resume()
+mdb.models['Model-1'].loads['SYP'].resume()
+mdb.models['Model-1'].loads['SYN'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SYP'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXN'].resume()
+mdb.models['Model-1'].loads['SXN'].suppress()
+mdb.jobs['FYY'].submit(consistencyChecking=OFF)
+mdb.jobs['FYY']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FYY.odb', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 5952, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYY', 'memory': 107.0})
+mdb.jobs['FYY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FYY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYY'})
+mdb.jobs['FYY']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:48:16 2023', 
+    'jobName': 'FYY'})
+mdb.models['Model-1'].loads['SYN'].suppress()
+mdb.models['Model-1'].loads['SYP'].suppress()
+mdb.models['Model-1'].loads['SZN'].resume()
+mdb.models['Model-1'].loads['SZP'].resume()
+mdb.models['Model-1'].loads['SZN'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SZP'].setValues(magnitude=0.01)
+mdb.jobs['FZZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FZZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FZZ.odb', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 2272, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FZZ', 'memory': 107.0})
+mdb.jobs['FZZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FZZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FZZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FZZ'})
+mdb.jobs['FZZ']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:50:32 2023', 
+    'jobName': 'FZZ'})
+mdb.models['Model-1'].loads['SZN'].suppress()
+mdb.models['Model-1'].loads['SZP'].suppress()
+mdb.models['Model-1'].loads['SXY_xyn'].resume()
+mdb.models['Model-1'].loads['SXY_xyp'].resume()
+mdb.models['Model-1'].loads['SXY_yxn'].resume()
+mdb.models['Model-1'].loads['SXY_yxp'].resume()
+mdb.models['Model-1'].loads['SXY_yxp'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXY_yxn'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXY_xyp'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXY_xyn'].setValues(magnitude=0.01)
+mdb.jobs['FXY'].submit(consistencyChecking=OFF)
+mdb.jobs['FXY']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXY.odb', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 10852, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXY', 'memory': 107.0})
+mdb.jobs['FXY']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FXY', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXY']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXY'})
+mdb.jobs['FXY']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 12:54:04 2023', 
+    'jobName': 'FXY'})
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].loads['SXY_yxp'].suppress()
+mdb.models['Model-1'].loads['SXY_yxn'].suppress()
+mdb.models['Model-1'].loads['SXY_xyp'].suppress()
+mdb.models['Model-1'].loads['SXY_xyn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzn'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXZ_xzp'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXZ_zxn'].setValues(magnitude=0.01)
+mdb.models['Model-1'].loads['SXZ_zxp'].setValues(magnitude=0.01)
+mdb.jobs['FXZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FXZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXZ.odb', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 4568, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 13:42:30 2023', 
+    'jobName': 'FXZ'})
+mdb.models['Model-1'].loads['SXZ_xzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzn'].resume()
+mdb.models['Model-1'].loads['SYZ_yzp'].resume()
+mdb.models['Model-1'].loads['SYZ_zyn'].resume()
+mdb.models['Model-1'].loads['SYZ_zyp'].resume()
+mdb.jobs['FYZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FYZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FYZ.odb', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 7976, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FYZ', 'memory': 107.0})
+mdb.jobs['FYZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FYZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FYZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FYZ'})
+mdb.jobs['FYZ']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 13:45:17 2023', 
+    'jobName': 'FYZ'})
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].loads['SYZ_zyp'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyn'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzp'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzp'].resume()
+mdb.models['Model-1'].loads['SXZ_xzn'].resume()
+mdb.jobs['FXZ'].submit(consistencyChecking=OFF)
+mdb.jobs['FXZ']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ESOL IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVOL IS NOT AVAILABLE FOR ELEMENT TYPE C3D8R', 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\FXZ.odb', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'LAPTOP-UNSB86LU', 'handle': 9520, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 1, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 2.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 2, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 2, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 2, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 3.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 3, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 3, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 3, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 4.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 4, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 4, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 4, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 5.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 5, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 5, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 5, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 6.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 6, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 6, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 6, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 7.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 7, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 7, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 7, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 8.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 8, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 8, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'FXZ', 'memory': 107.0})
+mdb.jobs['FXZ']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 4012.0, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(MINIMUM_MEMORY, {'minimum_memory': 24.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 8, 
+    'frame': 1, 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(STATUS, {'totalTime': 9.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 9, 
+    'jobName': 'FXZ', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['FXZ']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 9, 
+    'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'FXZ'})
+mdb.jobs['FXZ']._Message(JOB_COMPLETED, {'time': 'Tue Apr 18 13:57:35 2023', 
+    'jobName': 'FXZ'})
+# Save by nisha on 2023_04_18-14.21.01; build 2017 2016_09_28-03.24.59 126836

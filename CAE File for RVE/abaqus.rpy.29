@@ -1,0 +1,152 @@
+# -*- coding: mbcs -*-
+#
+# Abaqus/CAE Release 2017 replay file
+# Internal Version: 2016_09_28-03.24.59 126836
+# Run by nisha on Tue Apr 18 13:53:17 2023
+#
+
+# from driverUtils import executeOnCaeGraphicsStartup
+# executeOnCaeGraphicsStartup()
+#: Executing "onCaeGraphicsStartup()" in the site directory ...
+from abaqus import *
+from abaqusConstants import *
+session.Viewport(name='Viewport: 1', origin=(0.0, 0.0), width=147.939971923828, 
+    height=107.899742126465)
+session.viewports['Viewport: 1'].makeCurrent()
+session.viewports['Viewport: 1'].maximize()
+from caeModules import *
+from driverUtils import executeOnCaeStartup
+executeOnCaeStartup()
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=ON)
+openMdb(pathName='C:/temp/Kalashproject.cae')
+#: The model database "C:\temp\Kalashproject.cae" has been opened.
+session.viewports['Viewport: 1'].setValues(displayedObject=None)
+p = mdb.models['Model-1'].parts['Part-1']
+session.viewports['Viewport: 1'].setValues(displayedObject=p)
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON, optimizationTasks=OFF, 
+    geometricRestrictions=OFF, stopConditions=OFF)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+o3 = session.openOdb(name='C:/temp/FYZ.odb')
+#: Model: C:/temp/FYZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              9
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(plotState=(
+    CONTOURS_ON_DEF, ))
+session.animationController.setValues(animationType=TIME_HISTORY, viewports=(
+    'Viewport: 1', ))
+session.animationController.play(duration=UNLIMITED)
+session.animationController.setValues(animationType=NONE)
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FYZ.odb']
+session.writeFieldReport(fileName='Fyz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=5, frame=0, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FYZ.odb']
+session.writeFieldReport(fileName='Myz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=5, frame=0, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FYZ.odb'])
+o3 = session.openOdb(name='C:/temp/FXZ.odb')
+#: Model: C:/temp/FXZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              9
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(plotState=(
+    CONTOURS_ON_DEF, ))
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Fxz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=8, frame=1, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Mxz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=8, frame=1, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SYZ_zyp'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyn'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzp'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzp'].resume()
+mdb.models['Model-1'].loads['SXZ_xzn'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FXZ'].submit(consistencyChecking=OFF)
+#: The job input file "FXZ.inp" has been submitted for analysis.
+#: Job FXZ: Analysis Input File Processor completed successfully.
+#: Job FXZ: Abaqus/Standard completed successfully.
+#: Job FXZ completed successfully. 
+o3 = session.openOdb(name='C:/temp/FXZ.odb')
+#: Model: C:/temp/FXZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              9
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(plotState=(
+    CONTOURS_ON_DEF, ))
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Fxz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=8, frame=1, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-3', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Mxz.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=8, frame=1, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+mdb.save()
+#: The model database has been saved to "C:\temp\Kalashproject.cae".

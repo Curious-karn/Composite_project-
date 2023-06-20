@@ -1,0 +1,31 @@
+<Description>
+   ABAQUS/ABQcaeK rank 0 received the ABORT signal
+
+</Description>
+
+<Context>
+   CAE
+</Context>
+
+<Callstack>
+</Callstack>
+
+<Memory>
+   <Current>             268 MB </Current>
+   <Resident>            319 MB </Resident>
+   <Physical>           8102 MB </Physical>
+   <Limit>                 0 MB </Limit>
+   <Accessible>         8102 MB </Accessible>
+   <Allocator>            DL    </Allocator>
+</Memory>
+
+<Directories>
+  <current> D:\Mtech\Composits\Project\Project_report_code_22101028\CAE File for RVE </current> <free>     34 GB </free>   <used>    165 GB </used> 
+     <temp> C:\Users\KARANT~1\AppData\Local\Temp </temp>    <free>    202 GB </free>
+</Directories>
+
+<Installation>
+     <Version> 2022 6.22-1 </Version>
+       <Build> 2021_09_15-23.27.30 176069 </Build>
+</Installation>
+

@@ -1,0 +1,416 @@
+# -*- coding: mbcs -*-
+#
+# Abaqus/CAE Release 2017 replay file
+# Internal Version: 2016_09_28-03.24.59 126836
+# Run by nisha on Tue Apr 18 14:19:51 2023
+#
+
+# from driverUtils import executeOnCaeGraphicsStartup
+# executeOnCaeGraphicsStartup()
+#: Executing "onCaeGraphicsStartup()" in the site directory ...
+from abaqus import *
+from abaqusConstants import *
+session.Viewport(name='Viewport: 1', origin=(0.0, 0.0), width=147.939971923828, 
+    height=107.899742126465)
+session.viewports['Viewport: 1'].makeCurrent()
+session.viewports['Viewport: 1'].maximize()
+from caeModules import *
+from driverUtils import executeOnCaeStartup
+executeOnCaeStartup()
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=ON)
+openMdb(pathName='C:/temp/Kalashproject.cae')
+#: The model database "C:\temp\Kalashproject.cae" has been opened.
+session.viewports['Viewport: 1'].setValues(displayedObject=None)
+p = mdb.models['Model-1'].parts['Part-1']
+session.viewports['Viewport: 1'].setValues(displayedObject=p)
+mdb.saveAs(pathName='C:/temp/Karanproject.cae')
+#: The model database has been saved to "C:\temp\Karanproject.cae".
+session.viewports['Viewport: 1'].partDisplay.setValues(sectionAssignments=ON, 
+    engineeringFeatures=ON)
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=OFF)
+mdb.models['Model-1'].materials['Fibre'].elastic.setValues(table=((74000.0, 
+    74000.0, 74000.0, 0.2, 0.2, 0.2, 30800.0, 30800.0, 30800.0), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON, optimizationTasks=OFF, 
+    geometricRestrictions=OFF, stopConditions=OFF)
+mdb.models['Model-1'].loads['SXZ_xzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].suppress()
+mdb.models['Model-1'].loads['SXN'].resume()
+mdb.models['Model-1'].loads['SXP'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+#: The job input file "FXX.inp" has been submitted for analysis.
+#: Job FXX: Analysis Input File Processor completed successfully.
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(
+    adaptiveMeshConstraints=ON)
+#: Job FXX: Abaqus/Standard completed successfully.
+#: Job FXX completed successfully. 
+mdb.models['Model-1'].steps['Step-1'].setValues(timeIncrementationMethod=FIXED, 
+    initialInc=0.1, noStop=OFF)
+del mdb.models['Model-1'].steps['Step-9']
+del mdb.models['Model-1'].steps['Step-8']
+del mdb.models['Model-1'].steps['Step-7']
+del mdb.models['Model-1'].steps['Step-6']
+del mdb.models['Model-1'].steps['Step-5']
+del mdb.models['Model-1'].steps['Step-4']
+del mdb.models['Model-1'].steps['Step-3']
+del mdb.models['Model-1'].steps['Step-2']
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(
+    adaptiveMeshConstraints=OFF)
+mdb.jobs['FXX'].submit(consistencyChecking=OFF)
+#: The job input file "FXX.inp" has been submitted for analysis.
+#: Job FXX: Analysis Input File Processor completed successfully.
+#: Job FXX: Abaqus/Standard completed successfully.
+#: Job FXX completed successfully. 
+o3 = session.openOdb(name='C:/temp/FXX.odb')
+#: Model: C:/temp/FXX.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='U', outputPosition=NODAL, refinement=(INVARIANT, 
+    'Magnitude'), )
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(
+    plotState=CONTOURS_ON_DEF)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='S', outputPosition=INTEGRATION_POINT, refinement=(INVARIANT, 
+    'Mises'), )
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FXX.odb']
+session.writeFieldReport(fileName='Sigma_XX_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FXX.odb']
+session.writeFieldReport(fileName='Sigma_XX_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SXP'].suppress()
+mdb.models['Model-1'].loads['SXN'].suppress()
+mdb.models['Model-1'].loads['SYN'].resume()
+mdb.models['Model-1'].loads['SYP'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FYY'].submit(consistencyChecking=OFF)
+#: The job input file "FYY.inp" has been submitted for analysis.
+#: Job FYY: Analysis Input File Processor completed successfully.
+#: Job FYY: Abaqus/Standard completed successfully.
+#: Job FYY completed successfully. 
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FXX.odb'])
+o3 = session.openOdb(name='C:/temp/FYY.odb')
+#: Model: C:/temp/FYY.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='U', outputPosition=NODAL, refinement=(INVARIANT, 
+    'Magnitude'), )
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(
+    plotState=CONTOURS_ON_DEF)
+session.viewports['Viewport: 1'].view.setValues(session.views['Right'])
+session.viewports['Viewport: 1'].view.setValues(session.views['Iso'])
+session.viewports['Viewport: 1'].view.setValues(nearPlane=39.6373, 
+    farPlane=81.3051, width=38.378, height=18.9457, cameraPosition=(17.7775, 
+    28.8153, 57.409), cameraUpVector=(-0.719881, 0.5169, -0.463234), 
+    cameraTarget=(0.84548, -0.600364, 7.41933))
+session.viewports['Viewport: 1'].view.setValues(nearPlane=41.664, 
+    farPlane=79.6979, width=40.3403, height=19.9144, cameraPosition=(21.4769, 
+    13.0642, 62.5446), cameraUpVector=(-0.820134, 0.538927, -0.192192), 
+    cameraTarget=(0.848427, -0.612912, 7.42342))
+session.viewports['Viewport: 1'].view.setValues(nearPlane=40.6581, 
+    farPlane=81.4462, width=39.3663, height=19.4336, cameraPosition=(39.1983, 
+    -15.3737, 51.7813), cameraUpVector=(-0.799779, 0.458833, 0.387073), 
+    cameraTarget=(0.923752, -0.733788, 7.37767))
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FYY.odb']
+session.writeFieldReport(fileName='Sigma_YY_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FYY.odb']
+session.writeFieldReport(fileName='Sigma_YY_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SYN'].suppress()
+mdb.models['Model-1'].loads['SYP'].suppress()
+mdb.models['Model-1'].loads['SZN'].resume()
+mdb.models['Model-1'].loads['SZP'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FZZ'].submit(consistencyChecking=OFF)
+#: The job input file "FZZ.inp" has been submitted for analysis.
+#: Job FZZ: Analysis Input File Processor completed successfully.
+#: Job FZZ: Abaqus/Standard completed successfully.
+#: Job FZZ completed successfully. 
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FYY.odb'])
+o3 = session.openOdb(name='C:/temp/FZZ.odb')
+#: Model: C:/temp/FZZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='U', outputPosition=NODAL, refinement=(INVARIANT, 
+    'Magnitude'), )
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(
+    plotState=CONTOURS_ON_DEF)
+session.viewports['Viewport: 1'].view.setValues(session.views['Bottom'])
+session.viewports['Viewport: 1'].view.setValues(session.views['Left'])
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FZZ.odb']
+session.writeFieldReport(fileName='Sigma_ZZ_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FZZ.odb']
+session.writeFieldReport(fileName='Sigma_ZZ_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FZZ.odb']
+session.writeFieldReport(fileName='Sigma_ZZ_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FZZ.odb']
+session.writeFieldReport(fileName='Sigma_ZZ_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SZN'].suppress()
+mdb.models['Model-1'].loads['SZP'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyp'].resume()
+mdb.models['Model-1'].loads['SYZ_zyn'].resume()
+mdb.models['Model-1'].loads['SYZ_yzp'].resume()
+mdb.models['Model-1'].loads['SYZ_yzn'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FYZ'].submit(consistencyChecking=OFF)
+#: The job input file "FYZ.inp" has been submitted for analysis.
+#: Job FYZ: Analysis Input File Processor completed successfully.
+#: Job FYZ: Abaqus/Standard completed successfully.
+#: Job FYZ completed successfully. 
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FZZ.odb'])
+o3 = session.openOdb(name='C:/temp/FYZ.odb')
+#: Model: C:/temp/FYZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FYZ.odb']
+session.writeFieldReport(fileName='Tau_YZ_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FYZ.odb']
+session.writeFieldReport(fileName='Tau_YZ_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SYZ_yzn'].suppress()
+mdb.models['Model-1'].loads['SYZ_yzp'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyn'].suppress()
+mdb.models['Model-1'].loads['SYZ_zyp'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].resume()
+mdb.models['Model-1'].loads['SXZ_zxn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzn'].resume()
+mdb.models['Model-1'].loads['SXZ_xzp'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FXZ'].submit(consistencyChecking=OFF)
+#: The job input file "FXZ.inp" has been submitted for analysis.
+#: Job FXZ: Analysis Input File Processor completed successfully.
+#: Job FXZ: Abaqus/Standard completed successfully.
+#: Job FXZ completed successfully. 
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FYZ.odb'])
+o3 = session.openOdb(name='C:/temp/FXZ.odb')
+#: Model: C:/temp/FXZ.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='U', outputPosition=NODAL, refinement=(INVARIANT, 
+    'Magnitude'), )
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(
+    plotState=CONTOURS_ON_DEF)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Tau_XZ_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FXZ.odb']
+session.writeFieldReport(fileName='Tau_XZ_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+a = mdb.models['Model-1'].rootAssembly
+session.viewports['Viewport: 1'].setValues(displayedObject=a)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(
+    optimizationTasks=ON, geometricRestrictions=ON, stopConditions=ON)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(
+    optimizationTasks=OFF, geometricRestrictions=OFF, stopConditions=OFF)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+mdb.models['Model-1'].loads['SXZ_xzn'].suppress()
+mdb.models['Model-1'].loads['SXZ_xzp'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxn'].suppress()
+mdb.models['Model-1'].loads['SXZ_zxp'].suppress()
+mdb.models['Model-1'].loads['SXY_xyn'].resume()
+mdb.models['Model-1'].loads['SXY_xyp'].resume()
+mdb.models['Model-1'].loads['SXY_yxn'].resume()
+mdb.models['Model-1'].loads['SXY_yxp'].resume()
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=ON, bcs=ON, 
+    predefinedFields=ON, connectors=ON)
+session.viewports['Viewport: 1'].assemblyDisplay.setValues(loads=OFF, bcs=OFF, 
+    predefinedFields=OFF, connectors=OFF)
+mdb.jobs['FXY'].submit(consistencyChecking=OFF)
+#: The job input file "FXY.inp" has been submitted for analysis.
+#: Job FXY: Analysis Input File Processor completed successfully.
+#: Job FXY: Abaqus/Standard completed successfully.
+#: Job FXY completed successfully. 
+session.viewports['Viewport: 1'].setValues(
+    displayedObject=session.odbs['C:/temp/FXZ.odb'])
+o3 = session.openOdb(name='C:/temp/FXY.odb')
+#: Model: C:/temp/FXY.odb
+#: Number of Assemblies:         1
+#: Number of Assembly instances: 0
+#: Number of Part instances:     1
+#: Number of Meshes:             1
+#: Number of Element Sets:       3
+#: Number of Node Sets:          3
+#: Number of Steps:              1
+session.viewports['Viewport: 1'].setValues(displayedObject=o3)
+leaf = dgo.LeafFromElementSets(elementSets=('PART-1-1.SET-1', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='Tau_XY_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='Tau_XY_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='evol_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=INTEGRATION_POINT, variable=(('S', INTEGRATION_POINT, ((
+    COMPONENT, 'S11'), (COMPONENT, 'S22'), (COMPONENT, 'S33'), (COMPONENT, 
+    'S12'), (COMPONENT, 'S13'), (COMPONENT, 'S23'), )), ))
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='evol_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=WHOLE_ELEMENT, variable=(('EVOL', WHOLE_ELEMENT), ))
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='elv_matrix.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=WHOLE_ELEMENT, variable=(('EVOL', WHOLE_ELEMENT), ))
+leaf = dgo.Leaf(leafType=DEFAULT_MODEL)
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.either(leaf=leaf)
+odb = session.odbs['C:/temp/FXY.odb']
+session.writeFieldReport(fileName='elv_fiber.rpt', append=ON, 
+    sortItem='Element Label', odb=odb, step=0, frame=10, 
+    outputPosition=WHOLE_ELEMENT, variable=(('EVOL', WHOLE_ELEMENT), ))
+leaf = dgo.LeafFromElementSets(elementSets=(' ALL ELEMENTS', ))
+session.viewports['Viewport: 1'].odbDisplay.displayGroup.replace(leaf=leaf)
+session.viewports['Viewport: 1'].odbDisplay.setPrimaryVariable(
+    variableLabel='U', outputPosition=NODAL, refinement=(INVARIANT, 
+    'Magnitude'), )
+session.viewports['Viewport: 1'].odbDisplay.display.setValues(
+    plotState=CONTOURS_ON_DEF)

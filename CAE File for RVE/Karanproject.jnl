@@ -1,0 +1,5 @@
+# Save by Karan Tiwari on 2023_04_18-23.41.30; build 2022 2021_09_15-23.27.30 176069
+from abaqus import *
+upgradeMdb('D:/Mtech/hill/Karan/CAE File/Karanproject-2017.cae', 
+    'D:/Mtech/hill/Karan/CAE File/Karanproject.cae')
+# Save by Karan Tiwari on 2023_04_18-23.41.30; build 2022 2021_09_15-23.27.30 176069
